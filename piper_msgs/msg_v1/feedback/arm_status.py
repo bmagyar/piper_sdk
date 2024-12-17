@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*-coding:utf8-*-
 
+
 class ArmMsgStatus:
-    '''
+    """
     机械臂状态
 
     CAN ID:
@@ -16,10 +17,10 @@ class ArmMsgStatus:
         motion_status: 运动状态
         trajectory_num: 当前运行轨迹点序号
         err_code: 故障码
-    
+
     位描述:
 
-        Byte 0:控制模式,uint8 
+        Byte 0:控制模式,uint8
             - 0x00 待机模式
             - 0x01 CAN指令控制模式
             - 0x02 示教模式
@@ -28,7 +29,7 @@ class ArmMsgStatus:
             - 0x05 遥控器控制模式
             - 0x06 联动示教输入模式
             - 0x07 离线轨迹模式
-        Byte 1:机械臂状态,uint8 
+        Byte 1:机械臂状态,uint8
             - 0x00 正常
             - 0x01 急停
             - 0x02 无解
@@ -45,13 +46,13 @@ class ArmMsgStatus:
             - 0x0D 示教暂停
             - 0x0E 主控NTC过温
             - 0x0F 释放电阻NTC过温
-        Byte 2:模式反馈,uint8 
+        Byte 2:模式反馈,uint8
             - 0x00 MOVE P
             - 0x01 MOVE J
             - 0x02 MOVE L
             - 0x03 MOVE C
             - 0x04 MOVE M
-        Byte 3:示教状态,uint8 
+        Byte 3:示教状态,uint8
             - 0x00 关闭
             - 0x01 开始示教记录（进入拖动示教模式）
             - 0x02 结束示教记录（退出拖动示教模式）
@@ -60,7 +61,7 @@ class ArmMsgStatus:
             - 0x05 继续执行（轨迹复现继续）
             - 0x06 终止执行
             - 0x07 运动到轨迹起点
-        Byte 4:运动状态,uint8 
+        Byte 4:运动状态,uint8
             - 0x00 到达指定点位
             - 0x01 未到达指定点位
         Byte 5:当前运行轨迹点序号,uint8_t
@@ -83,8 +84,9 @@ class ArmMsgStatus:
             - bit[5]      6号关节角度超限位(0:正常 1:异常)
             - bit[6]      保留
             - bit[7]      保留
-    '''
-    '''
+    """
+
+    """
     Robot Arm Status
 
     CAN ID: 
@@ -165,24 +167,26 @@ class ArmMsgStatus:
             - bit[5]: Joint 6 angle limit exceeded (0: normal, 1: abnormal)
             - bit[6]: Reserved
             - bit[7]: Reserved
-    '''
-    
-    def __init__(self,
-                 ctrl_mode=0,
-                 arm_status=0,
-                 mode_feed=0,
-                 teach_status=0,
-                 motion_status=0,
-                 trajectory_num=0,
-                 err_code=0):
-        self.ctrl_mode:int=ctrl_mode       #控制模式
-        self.arm_status:int=arm_status      #机械臂状态
-        self.mode_feed:int=mode_feed       #模式反馈
-        self.teach_status:int=teach_status    #示教状态
-        self.motion_status:int=motion_status   #运动状态
-        self.trajectory_num:int=trajectory_num  #当前运行轨迹点序号
-        self._err_code = err_code         #故障码
-        self.err_status = self.ErrStatus()#故障码
+    """
+
+    def __init__(
+        self,
+        ctrl_mode=0,
+        arm_status=0,
+        mode_feed=0,
+        teach_status=0,
+        motion_status=0,
+        trajectory_num=0,
+        err_code=0,
+    ):
+        self.ctrl_mode: int = ctrl_mode  # 控制模式
+        self.arm_status: int = arm_status  # 机械臂状态
+        self.mode_feed: int = mode_feed  # 模式反馈
+        self.teach_status: int = teach_status  # 示教状态
+        self.motion_status: int = motion_status  # 运动状态
+        self.trajectory_num: int = trajectory_num  # 当前运行轨迹点序号
+        self._err_code = err_code  # 故障码
+        self.err_status = self.ErrStatus()  # 故障码
 
     class ErrStatus:
         def __init__(self):
@@ -198,20 +202,22 @@ class ArmMsgStatus:
             self.communication_status_joint_4 = False
             self.communication_status_joint_5 = False
             self.communication_status_joint_6 = False
-            
+
         def __str__(self):
-            return (f" Joint 1 Angle Limit Status: {self.joint_1_angle_limit}\n"
-                    f" Joint 2 Angle Limit Status: {self.joint_2_angle_limit}\n"
-                    f" Joint 3 Angle Limit Status: {self.joint_3_angle_limit}\n"
-                    f" Joint 4 Angle Limit Status: {self.joint_4_angle_limit}\n"
-                    f" Joint 5 Angle Limit Status: {self.joint_5_angle_limit}\n"
-                    f" Joint 6 Angle Limit Status: {self.joint_6_angle_limit}\n"
-                    f" Joint 1 Communication Status: {self.communication_status_joint_1}\n"
-                    f" Joint 2 Communication Status: {self.communication_status_joint_2}\n"
-                    f" Joint 3 Communication Status: {self.communication_status_joint_3}\n"
-                    f" Joint 4 Communication Status: {self.communication_status_joint_4}\n"
-                    f" Joint 5 Communication Status: {self.communication_status_joint_5}\n"
-                    f" Joint 6 Communication Status: {self.communication_status_joint_6}\n")
+            return (
+                f" Joint 1 Angle Limit Status: {self.joint_1_angle_limit}\n"
+                f" Joint 2 Angle Limit Status: {self.joint_2_angle_limit}\n"
+                f" Joint 3 Angle Limit Status: {self.joint_3_angle_limit}\n"
+                f" Joint 4 Angle Limit Status: {self.joint_4_angle_limit}\n"
+                f" Joint 5 Angle Limit Status: {self.joint_5_angle_limit}\n"
+                f" Joint 6 Angle Limit Status: {self.joint_6_angle_limit}\n"
+                f" Joint 1 Communication Status: {self.communication_status_joint_1}\n"
+                f" Joint 2 Communication Status: {self.communication_status_joint_2}\n"
+                f" Joint 3 Communication Status: {self.communication_status_joint_3}\n"
+                f" Joint 4 Communication Status: {self.communication_status_joint_4}\n"
+                f" Joint 5 Communication Status: {self.communication_status_joint_5}\n"
+                f" Joint 6 Communication Status: {self.communication_status_joint_6}\n"
+            )
 
     @property
     def err_code(self):
@@ -237,14 +243,16 @@ class ArmMsgStatus:
         self.err_status.communication_status_joint_6 = bool(value & (1 << 13))
 
     def __str__(self):
-        return (f"Control Mode: {self.ctrl_mode}\n"
-                f"Arm Status: {self.arm_status}\n"
-                f"Mode Feed: {self.mode_feed}\n"
-                f"Teach Status: {self.teach_status}\n"
-                f"Motion Status: {self.motion_status}\n"
-                f"Trajectory Num: {self.trajectory_num}\n"
-                f"Error Code: {self._err_code}\n"
-                f"Error Status: \n{self.err_status}\n")
+        return (
+            f"Control Mode: {self.ctrl_mode}\n"
+            f"Arm Status: {self.arm_status}\n"
+            f"Mode Feed: {self.mode_feed}\n"
+            f"Teach Status: {self.teach_status}\n"
+            f"Motion Status: {self.motion_status}\n"
+            f"Trajectory Num: {self.trajectory_num}\n"
+            f"Error Code: {self._err_code}\n"
+            f"Error Status: \n{self.err_status}\n"
+        )
 
     def __repr__(self):
         return self.__str__()

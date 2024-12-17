@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # -*-coding:utf8-*-
 
+
 class ArmMsgCrashProtectionRatingFeedback:
-    '''
+    """
     碰撞防护等级反馈指令
-    
-    CAN ID: 
+
+    CAN ID:
         0x47B
-    
+
     Args:
         joint_1_protection_level: 1号关节碰撞防护等级
         joint_2_protection_level: 2号关节碰撞防护等级
@@ -15,7 +16,7 @@ class ArmMsgCrashProtectionRatingFeedback:
         joint_4_protection_level: 4号关节碰撞防护等级
         joint_5_protection_level: 5号关节碰撞防护等级
         joint_6_protection_level: 6号关节碰撞防护等级
-    
+
     设定值 : 0~8
 
     等级 0 代表不检测碰撞； 6个关节可以独立设置
@@ -30,9 +31,9 @@ class ArmMsgCrashProtectionRatingFeedback:
         Byte 5: 6 号关节碰撞防护等级, uint8
         Byte 6: 保留
         Byte 7: 保留
-    '''
-    
-    '''
+    """
+
+    """
     Get the collision protection level feedback for each joint.
 
     CAN ID: 
@@ -60,15 +61,17 @@ class ArmMsgCrashProtectionRatingFeedback:
         Byte 5: Collision protection level for joint 6, uint8
         Byte 6: Reserved
         Byte 7: Reserved
-    '''
-    def __init__(self, 
-                 joint_1_protection_level:int=0, 
-                 joint_2_protection_level:int=0, 
-                 joint_3_protection_level: int=0,
-                 joint_4_protection_level: int=0,
-                 joint_5_protection_level: int=0,
-                 joint_6_protection_level: int=0
-                 ):
+    """
+
+    def __init__(
+        self,
+        joint_1_protection_level: int = 0,
+        joint_2_protection_level: int = 0,
+        joint_3_protection_level: int = 0,
+        joint_4_protection_level: int = 0,
+        joint_5_protection_level: int = 0,
+        joint_6_protection_level: int = 0,
+    ):
         self.joint_1_protection_level = joint_1_protection_level
         self.joint_2_protection_level = joint_2_protection_level
         self.joint_3_protection_level = joint_3_protection_level
@@ -77,30 +80,32 @@ class ArmMsgCrashProtectionRatingFeedback:
         self.joint_6_protection_level = joint_6_protection_level
 
     def __str__(self):
-        '''
+        """
         返回对象的字符串表示，用于打印。
-        '''
-        '''
+        """
+        """
         Return the string representation of the object for printing.
-        '''
-        return (f"ArmMsgCrashProtectionRatingFeedback(\n"
-                f"  joint_1_protection_level: {self.joint_1_protection_level},\n"
-                f"  joint_2_protection_level: {self.joint_2_protection_level},\n"
-                f"  joint_3_protection_level: {self.joint_3_protection_level},\n"
-                f"  joint_4_protection_level: {self.joint_4_protection_level},\n"
-                f"  joint_5_protection_level: {self.joint_5_protection_level},\n"
-                f"  joint_6_protection_level: {self.joint_6_protection_level}\n"
-                f")")
+        """
+        return (
+            f"ArmMsgCrashProtectionRatingFeedback(\n"
+            f"  joint_1_protection_level: {self.joint_1_protection_level},\n"
+            f"  joint_2_protection_level: {self.joint_2_protection_level},\n"
+            f"  joint_3_protection_level: {self.joint_3_protection_level},\n"
+            f"  joint_4_protection_level: {self.joint_4_protection_level},\n"
+            f"  joint_5_protection_level: {self.joint_5_protection_level},\n"
+            f"  joint_6_protection_level: {self.joint_6_protection_level}\n"
+            f")"
+        )
 
     def __repr__(self):
-        '''
+        """
         返回对象的正式字符串表示，通常用于调试。
 
         :return: 对象的字符串表示，与 __str__ 相同。
-        '''
-        '''
+        """
+        """
         Return the formal string representation of the object, typically used for debugging.
         
         :return: The string representation of the object, identical to `__str__`.
-        '''
+        """
         return self.__str__()

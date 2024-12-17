@@ -10,10 +10,11 @@ from typing import (
 import time
 from piper_sdk import *
 
-def enable_fun(piper:C_PiperInterface):
-    '''
+
+def enable_fun(piper: C_PiperInterface):
+    """
     使能机械臂并检测使能状态,尝试5s,如果使能超时则退出程序
-    '''
+    """
     enable_flag = False
     # 设置超时时间（秒）
     timeout = 5
@@ -23,15 +24,17 @@ def enable_fun(piper:C_PiperInterface):
     while not (enable_flag):
         elapsed_time = time.time() - start_time
         print("--------------------")
-        enable_flag = piper.GetArmLowSpdInfoMsgs().motor_1.foc_status.driver_enable_status and \
-            piper.GetArmLowSpdInfoMsgs().motor_2.foc_status.driver_enable_status and \
-            piper.GetArmLowSpdInfoMsgs().motor_3.foc_status.driver_enable_status and \
-            piper.GetArmLowSpdInfoMsgs().motor_4.foc_status.driver_enable_status and \
-            piper.GetArmLowSpdInfoMsgs().motor_5.foc_status.driver_enable_status and \
-            piper.GetArmLowSpdInfoMsgs().motor_6.foc_status.driver_enable_status
-        print("使能状态:",enable_flag)
+        enable_flag = (
+            piper.GetArmLowSpdInfoMsgs().motor_1.foc_status.driver_enable_status
+            and piper.GetArmLowSpdInfoMsgs().motor_2.foc_status.driver_enable_status
+            and piper.GetArmLowSpdInfoMsgs().motor_3.foc_status.driver_enable_status
+            and piper.GetArmLowSpdInfoMsgs().motor_4.foc_status.driver_enable_status
+            and piper.GetArmLowSpdInfoMsgs().motor_5.foc_status.driver_enable_status
+            and piper.GetArmLowSpdInfoMsgs().motor_6.foc_status.driver_enable_status
+        )
+        print("使能状态:", enable_flag)
         piper.EnableArm(7)
-        piper.GripperCtrl(0,1000,0x01, 0)
+        piper.GripperCtrl(0, 1000, 0x01, 0)
         print("--------------------")
         # 检查是否超过超时时间
         if elapsed_time > timeout:
@@ -41,9 +44,10 @@ def enable_fun(piper:C_PiperInterface):
             break
         time.sleep(1)
         pass
-    if(elapsed_time_flag):
+    if elapsed_time_flag:
         print("程序自动使能超时,退出程序")
         exit(0)
+
 
 if __name__ == "__main__":
     piper = C_PiperInterface("can0")
@@ -51,15 +55,15 @@ if __name__ == "__main__":
     piper.EnableArm(7)
     enable_fun(piper=piper)
     # piper.DisableArm(7)
-    piper.GripperCtrl(0,1000,0x01, 0)
+    piper.GripperCtrl(0, 1000, 0x01, 0)
     # X:135.481
-    piper.EndPoseCtrl(135481,9349,161129,178756,6035,-178440)
+    piper.EndPoseCtrl(135481, 9349, 161129, 178756, 6035, -178440)
     piper.MoveCAxisUpdateCtrl(0x01)
     time.sleep(0.001)
-    piper.EndPoseCtrl(222158,128758,142126,175152,-1259,-157235)
+    piper.EndPoseCtrl(222158, 128758, 142126, 175152, -1259, -157235)
     piper.MoveCAxisUpdateCtrl(0x02)
     time.sleep(0.001)
-    piper.EndPoseCtrl(359079,3221,153470,179038,1105,179035)
+    piper.EndPoseCtrl(359079, 3221, 153470, 179038, 1105, 179035)
     piper.MoveCAxisUpdateCtrl(0x03)
     time.sleep(0.001)
     piper.MotionCtrl_2(0x01, 0x03, 30, 0x00)

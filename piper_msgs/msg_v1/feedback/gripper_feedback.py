@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
 # -*-coding:utf8-*-
 
+
 class ArmMsgGripperFeedBack:
-    '''
+    """
     夹爪反馈消息
-    
+
     CAN ID:
         0x2A8
-    
+
     Args:
         grippers_angle: 夹爪角度，以整数表示。
         grippers_effort: 夹爪扭矩，以整数表示。
         status_code: 夹爪状态码，以整数表示。
-    
+
     位描述:
 
         Byte 0: 夹爪行程最高位, int32, 单位 0.001mm
-        Byte 1: 
-        Byte 2: 
-        Byte 3: 
+        Byte 1:
+        Byte 2:
+        Byte 3:
         Byte 4: 夹爪扭矩 H, int16, 单位 0.001N/m
         Byte 5: 夹爪扭矩 L
         Byte 6: 状态码, uint8
@@ -31,8 +32,9 @@ class ArmMsgGripperFeedBack:
             - bit[6]      驱动器使能状态(1:使能 0:失能)
             - bit[7]      回零状态(0:没有回零 1:已经回零,或已经回过零)
         Byte 7: 保留
-    '''
-    '''
+    """
+
+    """
     Gripper Feedback Message
 
     CAN ID:
@@ -62,33 +64,39 @@ class ArmMsgGripperFeedBack:
             - bit[6]: Driver enable status (1: Enabled, 0: Disabled)
             - bit[7]: Zeroing status (0: Not zeroed, 1: Zeroed or previously zeroed)
         Byte 7: Reserved
-    '''
-    def __init__(self, grippers_angle: int=0, grippers_effort: int=0, status_code: int=0):
+    """
+
+    def __init__(
+        self, grippers_angle: int = 0, grippers_effort: int = 0, status_code: int = 0
+    ):
         self.grippers_angle = grippers_angle
         self.grippers_effort = grippers_effort
         self._status_code = status_code
         self.foc_status = self.FOC_Status()
-    
+
     class FOC_Status:
         def __init__(self):
-            self.voltage_too_low  = False
+            self.voltage_too_low = False
             self.motor_overheating = False
             self.driver_overcurrent = False
             self.driver_overheating = False
             self.sensor_status = False
             self.driver_error_status = False
             self.driver_enable_status = False
-            self.homing_status  = False
-        def __str__(self): 
-            return (f"    voltage_too_low : {self.voltage_too_low}\n"
-                    f"    motor_overheating: {self.motor_overheating}\n"
-                    f"    driver_overcurrent: {self.driver_overcurrent}\n"
-                    f"    driver_overheating: {self.driver_overheating}\n"
-                    f"    sensor_status: {self.sensor_status}\n"
-                    f"    driver_error_status: {self.driver_error_status}\n"
-                    f"    driver_enable_status: {self.driver_enable_status}\n"
-                    f"    homing_status: {self.homing_status}\n"
-                    )
+            self.homing_status = False
+
+        def __str__(self):
+            return (
+                f"    voltage_too_low : {self.voltage_too_low}\n"
+                f"    motor_overheating: {self.motor_overheating}\n"
+                f"    driver_overcurrent: {self.driver_overcurrent}\n"
+                f"    driver_overheating: {self.driver_overheating}\n"
+                f"    sensor_status: {self.sensor_status}\n"
+                f"    driver_error_status: {self.driver_error_status}\n"
+                f"    driver_enable_status: {self.driver_enable_status}\n"
+                f"    homing_status: {self.homing_status}\n"
+            )
+
     @property
     def status_code(self):
         return self._status_code
@@ -107,13 +115,15 @@ class ArmMsgGripperFeedBack:
         self.foc_status.driver_error_status = bool(value & (1 << 5))
         self.foc_status.driver_enable_status = bool(value & (1 << 6))
         self.foc_status.homing_status = bool(value & (1 << 7))
-    
+
     def __str__(self):
-        return (f"ArmMsgGripperFeedBack(\n"
-                f"  grippers_angle: {self.grippers_angle}, {self.grippers_angle * 0.001:.3f},\n"
-                f"  grippers_effort: {self.grippers_effort} \t {self.grippers_effort * 0.001:.2f},\n"
-                f"  status_code: \n{self.foc_status}\n"
-                f")")
+        return (
+            f"ArmMsgGripperFeedBack(\n"
+            f"  grippers_angle: {self.grippers_angle}, {self.grippers_angle * 0.001:.3f},\n"
+            f"  grippers_effort: {self.grippers_effort} \t {self.grippers_effort * 0.001:.2f},\n"
+            f"  status_code: \n{self.foc_status}\n"
+            f")"
+        )
 
     def __repr__(self):
         return self.__str__()

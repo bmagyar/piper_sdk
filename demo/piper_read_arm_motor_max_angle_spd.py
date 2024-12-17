@@ -17,7 +17,7 @@ if __name__ == "__main__":
         # piper.SearchMotorMaxAngleSpdAccLimit(1,0x02)
         piper.SearchAllMotorMaxAngleSpd()
         # piper.SearchAllMotorMaxAccLimit()
-        
+
         # print(piper.GetCurrentMotorMaxAccLimit())
         # print(piper.GetCurrentMotorAngleLimitMaxVel())
         print(piper.GetAllMotorAngleLimitMaxSpd())

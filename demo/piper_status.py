@@ -13,6 +13,7 @@ if __name__ == "__main__":
     piper.ConnectPort()
     while True:
         import time
+
         print(piper.GetArmStatus())
         time.sleep(0.005)
         pass

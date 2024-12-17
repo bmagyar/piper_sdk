@@ -13,4 +13,4 @@ from piper_sdk import *
 if __name__ == "__main__":
     piper = C_PiperInterface()
     piper.ConnectPort()
-    piper.MotionCtrl_2(0, 0, 0, 0xAD)# 0xFC
+    piper.MotionCtrl_2(0, 0, 0, 0xAD)  # 0xFC
